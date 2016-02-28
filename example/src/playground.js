@@ -5,7 +5,8 @@ import Dock from 'react-dock';
 export default class Playground extends Component {
   constructor(props) {
     super(props);
-    this.state = { active: 0 };
+    this.state = { active: 0, dockVisible: false };
+    this.toggleDock = () => this.setState({dockVisible: !this.state.dockVisible});
   }
 
   render() {
@@ -25,9 +26,10 @@ export default class Playground extends Component {
     });
 
     return (
-
       <div>
-        <Dock position='right' isVisible={true}>
+        <div style={{positiong: 'absolute', top: 0, right: 0}} onClick={() => this.toggleDock()}>Toggle Dock</div>
+        <Dock position='right' isVisible={this.state.dockVisible}>
+          <div onClick={() => this.toggleDock()}>Close Dock</div>
           <ul>{fixtureLinks}</ul>
         </Dock>
         { React.createElement(this.props.component, this.props.fixtures[this.state.active]) }
