@@ -16,7 +16,7 @@ class App extends Component {
     this.fixtures = fixtures;
   }
   render() {
-    return <Playground component={HelloWorld} fixtures={this.fixtures} />;
+    return <Playground component={ HelloWorld } fixtures={ this.fixtures } />;
   }
 }
 

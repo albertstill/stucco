@@ -1,16 +1,15 @@
-var path = require('path');
-var fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import express from 'express';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-var express = require('express');
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
-
-var compiler = webpack({
+const compiler = webpack({
   entry: [
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-    path.join(__dirname, '../client/index.js'),
+    path.join(process.cwd(), 'src/index.js'),
   ],
   output: {
     path: '/',
@@ -41,19 +40,20 @@ var compiler = webpack({
       },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         loaders: ['style', 'css', 'sass'],
       },
     ],
   },
 });
 
-var app = express();
-var router = express.Router();
+const app = express();
+const router = new express.Router();
 
 router.get(
   '/',
   (req, res) => {
-    res.send(fs.readFileSync(path.join(__dirname, '../index.html')).toString());
+    res.send(fs.readFileSync(path.join(__dirname, 'index.html')).toString());
   }
 );
 

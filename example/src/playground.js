@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './playground.scss';
+import Dock from 'react-dock';
 
 export default class Playground extends Component {
   constructor(props) {
@@ -24,10 +25,11 @@ export default class Playground extends Component {
     });
 
     return (
+
       <div>
-        <div>
+        <Dock position='right' isVisible={true}>
           <ul>{fixtureLinks}</ul>
-        </div>
+        </Dock>
         { React.createElement(this.props.component, this.props.fixtures[this.state.active]) }
       </div>
     );

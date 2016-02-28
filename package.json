@@ -2,7 +2,7 @@
   "name": "stucco",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "watch": "nodemon -w server -x 'node server/server.js'"
   },
@@ -31,6 +31,7 @@
     "express": "^4.13.4",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-sidenav": "^1.0.2",
     "webpack": "^1.12.14"
   }
 }
