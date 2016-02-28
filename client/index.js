@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import styles from './index.scss';
+
+console.log(styles)
+
 class HelloWorld extends Component {
   render() {
     return (
-      <p>{this.props.greeting} {this.props.target}</p>
+      <p className={styles.large}>{this.props.greeting} {this.props.target}</p>
     );
   }
 }

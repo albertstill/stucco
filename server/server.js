@@ -21,23 +21,29 @@ var compiler = webpack({
     new webpack.NoErrorsPlugin(),
   ],
   module: {
-    loaders: [{
-      test: /\.js?$/,
-      loader: 'babel',
-      exclude: /node_modules/,
-      query: {
-        presets: ['react', 'es2015'],
-        plugins: [[
-          'react-transform', {
-            transforms: [{
-              transform: 'react-transform-hmr',
-              imports: ['react'],
-              locals: ['module'],
-            }],
-          },
-        ]],
+    loaders: [
+      {
+        test: /\.js?$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: {
+          presets: ['react', 'es2015'],
+          plugins: [[
+            'react-transform', {
+              transforms: [{
+                transform: 'react-transform-hmr',
+                imports: ['react'],
+                locals: ['module'],
+              }],
+            },
+          ]],
+        },
       },
-    }],
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass'],
+      },
+    ],
   },
 });
 
