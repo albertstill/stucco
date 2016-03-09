@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "history": "^2.0.1",
     "react-dock": "^0.2.3",
     "react-sidenav": "1.0.1"
   }

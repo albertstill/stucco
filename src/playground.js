@@ -36,10 +36,13 @@ export default class Playground extends Component {
 
     return (
       <div>
-        <Dock position="right" isVisible={true} size={this.state.dockVisible ? 0.055 : 0.5} dimMode="none">
-          <div className={styles['toggle-button']} onClick={this.toggleDock}>{this.state.dockVisible ? '<<' : '>>'}</div>
-          <ul className={styles['fixture-list']}>{fixtureLinks}</ul>
-        </Dock>
+        <div className={styles.dockContainer}>
+          <div className={styles.dock}>
+            <Dock position="right" isVisible={true} dimMode="none">
+              <ul className={styles['fixture-list']}>{fixtureLinks}</ul>
+            </Dock>
+          </div>
+        </div>
         { React.createElement(this.props.component, this.props.fixtures[this.state.active].props) }
       </div>
     );

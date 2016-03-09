@@ -1,0 +1,57 @@
+.dockContainer {
+  position: absolute;
+  right: 2.5vw;
+  top: 2.5vw;
+  height: 5vw;
+  width: 5vw;
+  z-index: 9998;
+  border-radius: 50%;
+  background: rgba(150,150,150,0.1);
+
+  &:hover .dock {
+    display: block;
+  }
+}
+
+.dock {
+  z-index: 9999;
+  display: none;
+  &:hover {
+    display: block;
+  }
+}
+
+.toggle-button {
+  border: 1px solid black;
+  font-size: 50px;
+}
+.close-button {
+  &:before {
+    content: 'x';
+    border: 1px solid black;
+    font-size: 50px;
+  }
+}
+.fixture-list {
+  padding: 5px;
+}
+
+.inactive {
+  background: #434343;
+  height: 100px;
+  text-align: center;
+  list-style: none;
+  color: white;
+  border: 1px solid black;
+  vertical-align: middle;
+  margin: 5px;
+}
+
+.active {
+  @extend .inactive;
+}
+
+.label {
+  background: #737373;
+  font-size: 2.2em;
+}
