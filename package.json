@@ -4,6 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "prepublish": "babel -d lib src",
     "watch": "nodemon -w src -e html,css,js -x 'babel -d lib src -D'"
   },
   "keywords": [],
