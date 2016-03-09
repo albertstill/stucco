@@ -28,7 +28,6 @@ function runServer() {
         {
           test: /\.js?$/,
           loader: 'babel',
-          exclude: /node_modules/,
           query: {
             presets: ['react', 'es2015'],
             plugins: [[
@@ -44,7 +43,6 @@ function runServer() {
         },
         {
           test: /\.scss$/,
-          exclude: /node_modules/,
           loaders: ['style', 'css?modules', 'sass'],
         },
       ],
