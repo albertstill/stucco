@@ -5,52 +5,57 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+const stuccoConfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc')));
 const stuccoEntry = path.join(process.cwd(), '.stucco-entry.js');
-const appEntry = path.join(process.cwd(), 'src/index.js');
+
+const componentPath = path.join(process.cwd(), stuccoConfig.component);
+const fixturesPath = path.join(process.cwd(), stuccoConfig.fixtures);
+const routesPath = path.join(process.cwd(), stuccoConfig.routes);
+
+const compiler = webpack({
+  entry: [
+    'webpack/hot/dev-server',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    stuccoEntry,
+  ],
+  output: {
+    path: '/',
+  },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  ],
+  module: {
+    loaders: [
+      {
+        test: /\.js?$/,
+        loader: 'babel',
+        query: {
+          presets: ['react', 'es2015'],
+          plugins: [[
+            'react-transform', {
+              transforms: [{
+                transform: 'react-transform-hmr',
+                imports: ['react'],
+                locals: ['module'],
+              }],
+            },
+          ]],
+        },
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css?modules', 'sass'],
+      },
+    ],
+  },
+});
 
 function runServer() {
-  const compiler = webpack({
-    entry: [
-      'webpack/hot/dev-server',
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-      stuccoEntry,
-    ],
-    output: {
-      path: '/',
-    },
-    plugins: [
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-    ],
-    module: {
-      loaders: [
-        {
-          test: /\.js?$/,
-          loader: 'babel',
-          query: {
-            presets: ['react', 'es2015'],
-            plugins: [[
-              'react-transform', {
-                transforms: [{
-                  transform: 'react-transform-hmr',
-                  imports: ['react'],
-                  locals: ['module'],
-                }],
-              },
-            ]],
-          },
-        },
-        {
-          test: /\.scss$/,
-          loaders: ['style', 'css?modules', 'sass'],
-        },
-      ],
-    },
-  });
-
   const app = express();
   const router = new express.Router();
+  const routes = require(routesPath).default;
 
   router.get(
     '/',
@@ -58,6 +63,10 @@ function runServer() {
       res.send(fs.readFileSync(path.join(__dirname, 'index.html')).toString());
     }
   );
+
+  routes.forEach(({ pattern, method, handler }) => {
+    router[method](pattern, handler);
+  });
 
   app.use(router);
   app.use(webpackDevMiddleware(
@@ -81,11 +90,12 @@ function template() {
     import React from 'react';
     import ReactDOM from 'react-dom';
     import Playground from '${playgroundPath}';
-    const Component = require('${appEntry}');
+    const Component = require('${componentPath}').default;
+    const fixtures = require('${fixturesPath}').default;
     const mountNode = document.querySelector('.app');
 
     ReactDOM.render(
-      <Playground component={ Component.Component } fixtures={ Component.fixtures } />,
+      <Playground component={ Component } fixtures={ fixtures } />,
       mountNode
     );
   `;

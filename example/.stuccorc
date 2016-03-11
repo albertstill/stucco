@@ -1,0 +1,5 @@
+{
+  "fixtures": "fixtures.js",
+  "component": "src/hello-world.js",
+  "routes": "routes.js"
+}
