@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import styles from './hello-world.scss';
 
-export default class HelloWorld extends Component {
-  render() {
-    return (
-      <p className={styles.large}>{this.props.greeting} {this.props.target}</p>
-    );
-  }
+export default function HelloWorld({ greeting, target }) {
+  return (
+    <p className={styles.large}>{greeting} {target}</p>
+  );
 }
 
+HelloWorld.propTypes = {
+  greeting: React.PropTypes.string,
+  target: React.PropTypes.string,
+};
