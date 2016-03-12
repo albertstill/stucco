@@ -25,6 +25,8 @@ This tool is purely focused on building self-contained modules not full applicat
 
 ### HMR
 
+![](media/hmr.gif)
+
 ### Extensible Routes
 
 ![](media/routes.gif)
