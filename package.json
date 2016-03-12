@@ -5,6 +5,7 @@
   "bin": "bin.js",
   "main": "lib/index.js",
   "scripts": {
+    "test": "mocha",
     "prepublish": "babel -d lib src",
     "watch": "nodemon -w src -e html,css,js -x 'babel -d lib src -D'"
   },
@@ -15,6 +16,7 @@
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "^6.0.2",
     "eslint-plugin-react": "^4.1.0",
+    "mocha": "^2.4.5",
     "nodemon": "^1.9.1"
   },
   "dependencies": {
