@@ -118,4 +118,7 @@ function createEntryFile() {
   });
 }
 
-createEntryFile().then(() => runServer());
+export default function run() {
+  createEntryFile().then(() => runServer());
+}
+
