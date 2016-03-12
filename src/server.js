@@ -5,12 +5,12 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-const stuccoConfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc')));
 const stuccoEntry = path.join(process.cwd(), '.stucco-entry.js');
 
-const componentPath = path.join(process.cwd(), stuccoConfig.component);
-const fixturesPath = path.join(process.cwd(), stuccoConfig.fixtures);
-const routesPath = path.join(process.cwd(), stuccoConfig.routes);
+const stuccoConfig = () => JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc')));
+const componentPath = () => path.join(process.cwd(), stuccoConfig().component);
+const fixturesPath = () => path.join(process.cwd(), stuccoConfig().fixtures);
+const routesPath = () => path.join(process.cwd(), stuccoConfig().routes);
 
 const compiler = webpack({
   entry: [
@@ -55,7 +55,7 @@ const compiler = webpack({
 function runServer() {
   const app = express();
   const router = new express.Router();
-  const routes = require(routesPath).default;
+  const routes = require(routesPath()).default;
 
   router.get(
     '/',
@@ -90,8 +90,8 @@ function template() {
     import React from 'react';
     import ReactDOM from 'react-dom';
     import Playground from '${playgroundPath}';
-    const Component = require('${componentPath}').default;
-    const fixtures = require('${fixturesPath}').default;
+    const Component = require('${componentPath()}').default;
+    const fixtures = require('${fixturesPath()}').default;
     const mountNode = document.querySelector('.app');
 
     ReactDOM.render(
