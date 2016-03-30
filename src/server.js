@@ -50,6 +50,9 @@ const compiler = webpack({
       },
     ],
   },
+  sassLoader: {
+    includePaths: ['node_modules'],
+  },
 });
 
 function runServer() {

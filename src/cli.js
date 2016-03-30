@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import 'babel-core/register';
 import commander from 'commander';
 import { version } from '../package.json';
 import server from './server.js';
