@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "generateExample": "rm -rf example; mkdir example; cd example; npm init -y; npm link ../; stucco scaffold",
-    "prepublish": "babel -d lib src",
+    "prepublish": "babel -Dd lib src",
     "watch": "nodemon -w src -e html,css,js -x 'babel -d lib src -D'"
   },
   "keywords": [],
