@@ -13,6 +13,12 @@ export default class Playground extends Component {
     this.toggleDock = toggleDock.bind(this);
   }
 
+  getChildContext() {
+    return {
+      context: this.props.fixtures[this.state.active].context,
+    };
+  }
+
   render() {
     const fixtureLinks = this.props.fixtures.map(({ label, props }, i) => {
       const itemClass = this.state.active === i ? `${styles.active}` : styles.inactive;
@@ -38,7 +44,7 @@ export default class Playground extends Component {
       <div>
         <div className={styles.dockContainer}>
           <div className={styles.dock}>
-            <Dock position="right" isVisible={true} dimMode="none">
+            <Dock position="right" isVisible dimMode="none">
               <ul className={styles['fixture-list']}>{fixtureLinks}</ul>
             </Dock>
           </div>
@@ -48,3 +54,12 @@ export default class Playground extends Component {
     );
   }
 }
+
+Playground.childContextTypes = {
+  context: React.PropTypes.object,
+};
+
+Playground.propTypes = {
+  fixtures: React.PropTypes.array.isRequired,
+  component: React.PropTypes.func.isRequired,
+};

@@ -4,6 +4,7 @@ import commander from 'commander';
 import { version } from '../package.json';
 import server from './server.js';
 import scaffold from './scaffold.js';
+import distribute from './distributor.js';
 
 export default function cli() {
   commander.version(version);
@@ -18,6 +19,12 @@ export default function cli() {
     'scaffold'
   ).action(() => {
     scaffold();
+  });
+
+  commander.command(
+    'dist'
+  ).action(() => {
+    distribute();
   });
 
   commander.parse(process.argv);
