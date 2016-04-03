@@ -122,6 +122,6 @@ function createEntryFile() {
 }
 
 export default function run() {
-  createEntryFile().then(() => runServer());
+  createEntryFile().then(() => runServer()).catch(err => console.log(err));
 }
 
