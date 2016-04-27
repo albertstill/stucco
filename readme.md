@@ -59,8 +59,7 @@ $ ./node_modules/.bin/stucco scaffold
 #   src/routes.js
 # and add the following tasks to your package.json
 #   watch
-#   build
-#   distribute
+#   dist
 ```
 
 ```js
@@ -69,6 +68,7 @@ $ ./node_modules/.bin/stucco scaffold
   ...
   "scripts": {
     "watch": "stucco watch", // runs a server that serves the component file, watching for changes and hot-reloading
+    "dist": "stucco dist", // compiles and bundles the javascript and styles used by the project
     ...
   },
   ...
