@@ -46,7 +46,7 @@ const compiler = webpack({
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css?modules', 'sass'],
+        loaders: ['style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'sass'],
       },
     ],
   },
@@ -124,4 +124,3 @@ function createEntryFile() {
 export default function run() {
   createEntryFile().then(() => runServer()).catch(err => console.log(err));
 }
-
