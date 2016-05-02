@@ -74,6 +74,6 @@ export default function distribute() {
       handleWarnings(jsonStats.warnings);
     }
 
-    return console.log('Successfully wrote to bundle.js');
+    return console.log('Successfully wrote to bundle.js and styles.css');
   });
 }
