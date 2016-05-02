@@ -27,10 +27,10 @@ const compiler = webpack({
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules!sass'),
+        loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]!sass'),
       },
     ],
-  },
+  },\
   plugins: [
     new ExtractTextPlugin('styles.css'),
     new webpack.optimize.UglifyJsPlugin({
