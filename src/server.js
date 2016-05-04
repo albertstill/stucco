@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import express from 'express';
 import webpack from 'webpack';
+import bodyParser from 'body-parser';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
@@ -59,6 +60,10 @@ function runServer() {
   const app = express();
   const router = new express.Router();
   const routes = require(routesPath()).default;
+  // parse application/json
+  app.use(bodyParser.json({ limit: Number.MAX_VALUE }));
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: true, limit: Number.MAX_VALUE }));
 
   router.get(
     '/',
@@ -124,4 +129,3 @@ function createEntryFile() {
 export default function run() {
   createEntryFile().then(() => runServer()).catch(err => console.log(err));
 }
-
