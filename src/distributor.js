@@ -26,7 +26,7 @@ const compiler = webpack({
         },
       },
       {
-        test: /\.scss$/,
+        test: /(\.css|\.scss)$/,
         loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]!sass'),
       },
     ],
