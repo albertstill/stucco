@@ -27,7 +27,7 @@ const compiler = webpack({
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules!sass'),
+        loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]!sass'),
       },
     ],
   },
@@ -74,6 +74,6 @@ export default function distribute() {
       handleWarnings(jsonStats.warnings);
     }
 
-    return console.log('Successfully wrote to bundle.js');
+    return console.log('Successfully wrote to bundle.js and styles.css');
   });
 }
