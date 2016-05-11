@@ -47,7 +47,11 @@ const compiler = webpack({
       },
       {
         test: /(\.css|\.scss)$/,
-        loaders: ['style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'sass'],
+        loaders: [
+          'style',
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'sass',
+        ],
       },
     ],
   },
