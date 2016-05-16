@@ -69,16 +69,17 @@ function runServer() {
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: true, limit: Number.MAX_VALUE }));
 
+  routes.forEach(({ pattern, method, handler }) => {
+    router[method](pattern, handler);
+  });
+
+  // default to index.html if no root path is set in the users Stucco config
   router.get(
     '/',
     (req, res) => {
       res.send(fs.readFileSync(path.join(__dirname, 'index.html')).toString());
     }
   );
-
-  routes.forEach(({ pattern, method, handler }) => {
-    router[method](pattern, handler);
-  });
 
   app.use(router);
   app.use(webpackDevMiddleware(
