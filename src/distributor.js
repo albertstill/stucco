@@ -2,15 +2,20 @@ import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import chalk from 'chalk';
-
+import fs from 'fs';
 const stuccoEntry = path.join(process.cwd(), 'src/dist.js');
+const { name: outputName } = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc')));
+const outputFolder = './dist';
+const cssFileName = `${outputName || 'bundle'}.min.css`;
+const jsFileName = `${outputName || 'bundle'}.min.js`;
 
 const compiler = webpack({
   entry: [
     stuccoEntry,
   ],
   output: {
-    path: './',
+    filename: jsFileName,
+    path: outputFolder,
   },
   externals: {
     react: 'React',
@@ -32,7 +37,7 @@ const compiler = webpack({
     ],
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin(cssFileName),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -74,6 +79,8 @@ export default function distribute() {
       handleWarnings(jsonStats.warnings);
     }
 
-    return console.log('Successfully wrote to bundle.js and styles.css');
+    return console.log(
+      `Successfully compiled to ${outputFolder}/${cssFileName} and ${outputFolder}/${jsFileName}`
+    );
   });
 }
