@@ -92,6 +92,9 @@ function runServer() {
 
   app.use(webpackHotMiddleware(compiler));
 
+  // returns static files. Paths are relative to where the Node process is started.
+  app.use(express.static('./'));
+
   app.listen(3000, () => {});
 }
 
