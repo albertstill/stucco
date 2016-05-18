@@ -3,54 +3,6 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import chalk from 'chalk';
 import fs from 'fs';
-const stuccoEntry = path.join(process.cwd(), 'src/dist.js');
-const { name: outputName } = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc')));
-const outputFolder = './dist';
-const cssFileName = `${outputName || 'bundle'}.min.css`;
-const jsFileName = `${outputName || 'bundle'}.min.js`;
-
-const compiler = webpack({
-  entry: [
-    stuccoEntry,
-  ],
-  output: {
-    filename: jsFileName,
-    path: outputFolder,
-  },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.js?$/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015'],
-        },
-      },
-      {
-        test: /(\.css|\.scss)$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
-        ),
-      },
-    ],
-  },
-  plugins: [
-    new ExtractTextPlugin(cssFileName),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
-  ],
-  sassLoader: {
-    includePaths: ['node_modules'],
-  },
-});
 
 function handleFatalError(err) {
   console.log(chalk.red('Failed with error:'));
@@ -68,6 +20,63 @@ function handleWarnings(warnings) {
 }
 
 export default function distribute() {
+  let outputName;
+  try {
+    outputName = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc'))).name;
+  } catch (e) {
+    throw new Error(
+      'No .stuccorc found. You must have run Stucco scaffold set up before you can run `distribute`'
+    );
+  }
+
+  const stuccoEntry = path.join(process.cwd(), 'src/dist.js');
+  const outputFolder = './dist';
+  const cssFileName = `${outputName || 'bundle'}.min.css`;
+  const jsFileName = `${outputName || 'bundle'}.min.js`;
+
+  const compiler = webpack({
+    entry: [
+      stuccoEntry,
+    ],
+    output: {
+      filename: jsFileName,
+      path: outputFolder,
+    },
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.js?$/,
+          loader: 'babel',
+          query: {
+            presets: ['react', 'es2015'],
+          },
+        },
+        {
+          test: /(\.css|\.scss)$/,
+          loader: ExtractTextPlugin.extract(
+            'style',
+            'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
+          ),
+        },
+      ],
+    },
+    plugins: [
+      new ExtractTextPlugin(cssFileName),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+        },
+      }),
+    ],
+    sassLoader: {
+      includePaths: ['node_modules'],
+    },
+  });
+
   compiler.run((err, stats) => {
     if (err) {
       return handleFatalError(err);
