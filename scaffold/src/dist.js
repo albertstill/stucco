@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Component from './index.js';
+import Component from './src/components/hello';
 
 // change this to your actual entry dom node/nodes
 const entryPoint = '.entry-point';

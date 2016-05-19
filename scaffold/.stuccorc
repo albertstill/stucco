@@ -1,5 +1,6 @@
 {
-  "fixtures": "src/fixtures.js",
-  "component": "src/index.js",
-  "routes": "src/routes.js"
+  "name": "helloWorld",
+  "fixtures": "dev/fixtures.js",
+  "routes": "dev/routes.js",
+  "component": "src/components/helloWorld"
 }
