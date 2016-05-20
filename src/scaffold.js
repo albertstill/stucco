@@ -15,8 +15,6 @@ function updatePackageJson() {
   const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json')));
   pkg.scripts.watch = 'stucco watch';
   pkg.scripts.dist = 'stucco dist';
-  pkg.babel = {};
-  pkg.babel.presets = ['es2015', 'react'];
   fs.writeFileSync(path.join(process.cwd(), 'package.json'), JSON.stringify(pkg, {}, 2));
 }
 
