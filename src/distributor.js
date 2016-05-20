@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import chalk from 'chalk';
 import fs from 'fs';
+import { getStuccorcJSON } from './util';
 
 function handleFatalError(err) {
   console.log(chalk.red('Failed with error:'));
@@ -22,21 +23,23 @@ function handleWarnings(warnings) {
 export default function distribute() {
   let outputName;
   try {
-    outputName = JSON.parse(fs.readFileSync(path.join(process.cwd(), '.stuccorc'))).name;
+    outputName = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'))).name;
   } catch (e) {
-    throw new Error(
-      'No .stuccorc found. You must have run Stucco scaffold set up before you can run `distribute`'
-    );
+    outputName = 'bundle';
   }
 
-  const stuccoEntry = path.join(process.cwd(), 'src/dist.js');
+  const stuccoEntry = getStuccorcJSON().dist;
+  if (!stuccoEntry) {
+    throw new Error('No `dist` field found in .stuccorc');
+  }
+  const stuccoEntryPath = path.join(process.cwd(), stuccoEntry);
   const outputFolder = './dist';
-  const cssFileName = `${outputName || 'bundle'}.min.css`;
-  const jsFileName = `${outputName || 'bundle'}.min.js`;
+  const cssFileName = `${outputName}.min.css`;
+  const jsFileName = `${outputName}.min.js`;
 
   const compiler = webpack({
     entry: [
-      stuccoEntry,
+      stuccoEntryPath,
     ],
     output: {
       filename: jsFileName,

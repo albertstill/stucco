@@ -1,6 +1,5 @@
 {
-  "name": "helloWorld",
-  "fixtures": "dev/fixtures.js",
+  "entry": "dev/index.js",
   "routes": "dev/routes.js",
-  "component": "src/components/helloWorld"
+  "dist": "src/index.js"
 }
