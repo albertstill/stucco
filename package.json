@@ -2,7 +2,7 @@
   "name": "stucco",
   "version": "0.1.0",
   "description": "",
-  "main": "src/playground.js",
+  "main": "lib/playground.js",
   "bin": "bin.js",
   "scripts": {
     "test": "mocha",
