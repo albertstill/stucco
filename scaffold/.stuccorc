@@ -1,5 +1,5 @@
 {
-  "fixtures": "src/fixtures.js",
-  "component": "src/index.js",
-  "routes": "src/routes.js"
+  "entry": "dev/index.js",
+  "routes": "dev/routes.js",
+  "dist": "src/index.js"
 }

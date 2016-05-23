@@ -1,16 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Component from './components/helloWorld';
 
-import styles from './index.scss';
+// change this to your actual entry dom node/nodes
+const entryPoint = '.entry-point';
 
-export default class HelloWorld extends React.Component {
-  render() {
-    return (
-      <p className={styles.large}>{this.props.greeting} {this.props.target}</p>
-    );
-  }
-}
+// change this to your actual props
+const props = { greeting: 'hello', target: 'world' };
 
-HelloWorld.propTypes = {
-  greeting: React.PropTypes.string,
-  target: React.PropTypes.string,
-};
+ReactDOM.render(
+  <Component {...props} />,
+  document.querySelector(entryPoint)
+);

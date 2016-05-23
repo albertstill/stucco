@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
-import fs from 'fs-extra';
 import path from 'path';
+import fs from 'fs-extra';
 
 const log = console.log.bind(console);
 
